@@ -1,10 +1,18 @@
 # Dynamic Programming
-Dynamic programming, or DP, is a commonly used competitive programming technique that can be used to solve a wide variety of problems. It’s based on a simple idea: using subproblems to solve a bigger one.
+Dynamic programming, or DP, is a commonly used competitive programming technique that can be used to solve a wide variety of problems. It’s based on a simple idea: using subproblems, which are called states, to solve a bigger one.
+
+> [!TIP]
+> There are two types of problems where DP can be used: Finding the optimal solution for something (i.e. minimising or maximising the answer) and counting the ways of doing something.
 
 ## Understanding DP: the Fibonacci sequence
 In the Fibonacci sequence, the first numbers are 0 and 1 and every other number is the sum of the 2 numbers before it. The first 10 numbers of the Fibonacci sequence are $0, 1, 1, 2, 3, 5, 8, 13, 21$ and $34$. That can translate into $solve$<sub>$i$</sub> $= solve$<sub>$i-1$</sub> $+ solve$<sub>$i-2$</sub>, where $i$ is the index of the element we want to calculate.
 
-This is the idea of DP: To calculate the answer (here, the element) for a certain value (here, the index of the element), we use the answers for smaller values (here, $i-1$ and $i-2$).
+This is the idea of DP: To calculate the answer (here, the element) for a certain value (here, the index of the element), we use the answers of one or more subproblems (here, $i-1$ and $i-2$).
+
+> [!NOTE]
+> **States and transitions**
+> 
+> The subproblems are called *states*, while the recursive calls are called *transitions*.
 
 To code this, we can use a recursive function that takes $i$ as an argument and return the $i$<sup>$th$</sup> element:
 ```cpp
@@ -54,7 +62,7 @@ As we can see, solve is called many times for the same value. This happens becau
 
 This is where *memoization* comes in. Memoization is basically storing the answer for each value after we calculate it, and then using the stored value every time we call `solve()` for that value. To do that, we will use an array `ans`. Beafore calling `solve`, we will set every value of `ans` to -1, and use that as a flag (a sign that we haven't calculated the answer for that value yet). Every time we call `solve`, we will first check if we have already found the answerfor that value, and, if we have, we will return that value instead.
 
-> [!TIP]
+> [!NOTE]
 > The value we use as a flag could be any value that can't be the actual answer. This means that if the answer can be a negative number, -1 won't work, so a really large or small number, like $1e18$ can be used instead. Alternatively, we can have a second array of booleans, where `true` means we have calculated the answer and `false` means we haven't.
 
 Here is the new code:
@@ -92,4 +100,10 @@ This time, each value needs to be calculated at most once, so the new complexity
 ### Optimal solutions: The coin problem
 Now let's try to solve [Minimizing Coins (CSES)](https://cses.fi/problemset/task/1634). To do that, we will try to approach the problem, step by step.
 
-#### 1. What does `solve()` return?
+#### 1. Defining the states
+**Finding subproblems**: To solve a problem with DP, we must first decide what our subproblems will be. To do that, we have to divide the problem into "steps". These will basically be the choices we have. In this case, each time we have to choose the next coin we are going to use, so each "step" will be the choise of a coin.
+
+**Finding the parameters**: To do that, we have to find what changes after each step. Here, what changes after we select a coin is the value that we need to collect from now on (For example, if $x=10$ and we have used a coin of value $2$, this value will be $8$). This is the only info we will need in order to solve the problem.
+
+#### 2. Seperating cases
+**Working with recursion**: Now that we know
