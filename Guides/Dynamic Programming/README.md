@@ -86,3 +86,10 @@ int main(){
 ```
 
 This time, each value needs to be calculated at most once, so the new complexity is $O(i)$.
+
+## Solving a DP problem
+
+### Optimal solutions: The coin problem
+Now let's try to solve [Minimizing Coins (CSES)](https://cses.fi/problemset/task/1634). To do that, we will try to approach the problem, step by step.
+
+#### 1. What does `solve()` return?
