@@ -9,7 +9,7 @@ In the Fibonacci sequence, the first numbers are 0 and 1 and every other number 
 
 This is the idea of DP: To calculate the answer (here, the element) for a certain value (here, the index of the element), we use the answers of one or more subproblems (here, $i-1$ and $i-2$).
 
-> [!NOTE]
+> [!IMPORTANT]
 > **States and transitions**
 > 
 > The subproblems are called *states*, while the recursive calls are called *transitions*.
@@ -103,11 +103,15 @@ Now let's try to solve [Minimizing Coins (CSES)](https://cses.fi/problemset/task
 #### 1. Defining the states
 **Finding subproblems**: To solve a problem with DP, we must first decide what our subproblems will be. To do that, we have to divide the problem into "steps". These will basically be the choices we have. In this case, each time we have to choose the next coin we are going to use, so each "step" will be the choise of a coin.
 
-**Finding the parameters**: To do that, we have to find what changes after each step. Here, what changes after we select a coin is the value that we need to collect from now on (For example, if $x=10$ and we have used a coin of value $2$, this value will be $8$). Let's call this value $r$. This is the only info we will need in order to solve the problem.
+**Finding the parameters**: To do that, we have to find what changes after each step. Here, what changes after we select a coin is the value that we need to collect from now on (For example, if $r=10$ and we have used a coin of value $2$, this value will be $8$). Let's call this value $r$. This is the only info we will need in order to solve the problem.
 
 #### 2. Seperating cases
-**Working with recursion**: Generally, to find the best option, `solve()` has to choose the minimum/maximum option, depending on the problem. So the next question is: What do we need to know in order to calculate the value of each option? For each option we need to call `solve()`, changing the parameters in the way they will change after the current step. For example, here, if we choose a coin with value $c$<sub>$i$</sub>, then $r$ will reduce by $a$<sub>$i$</sub>, so we must call `solve(r-a[i])`. Next, we must find how this value will be affected during each step. Here, in each step we add one more coin, so the value will be increased by $1$. With these in mind, we can see that to calculate the answer for $x$, we must find the minimum value of `solve(r-a[i])+1` among all $i$, $0 \leq i < n$.
+**Working with recursion**: Generally, to find the best option, `solve()` has to choose the minimum/maximum option, depending on the problem. So the next question is: What do we need to know in order to calculate the value of each option? For each option we need to call `solve()`, changing the parameters in the way they will change after the current step. For example, here, if we choose a coin with value $c$<sub>$i$</sub>, then $r$ will reduce by $a$<sub>$i$</sub>, so we must call `solve(r-a[i])`. Next, we must find how this value will be affected during each step. Here, in each step we add one more coin, so the value will be increased by $1$. With these in mind, we can see that to calculate the answer for $r$, we must find the minimum value of `solve(r-a[i])+1` among all $i$, $0 \leq i < n$.
 
-**The base case**: Now, we need to add a base case. The base case must be the simplest subproblem our code will reach. In this case, that's $x=0$, with it's answer being $0$, as we won't need any more coins.
+**The base case**: Now, we need to add a base case. The base case must be the simplest subproblem our code will reach. In this case, that's $r=0$, with it's answer being $0$, as we won't need any more coins.
 
-**Other cases**: 
+**Other cases**: There's still a problem: sometimes, the subproblem will be unsolvable. For example, if $c={3,4}$ and `solve(2)` is called, it will call `solve(-1)` (since $r-a$<sub>$0$</sub> $=2-3=-1$) and `solve(-2)` (since $r-a$<sub>$1$</sub> $=2-4=-2$), but, obviously, $-1$ and $-2$ are no reachable sums. What's more, the code will run forever, since it will keep reducing $r$ without ever reaching the base case. So when $r<0$ the code must return a value that won't affect the final result. In optimal solution problems, this means it must return a value that will never be the minimum/maximum value, so it will never be chosen, while when counting ways the value must be $0$ so it doesn't affect the sum. Here, since we need the minimum value we can return $10$<sup>$9$</sup>, or any other number larger than $10$<sup>$6$</sup>, so that, no matter what, the other values will be smaller (The worst case is using the minimum value of coins, which is $1$ for the maximum sum, which is $10$<sup>$6$</sup>, meaning $10$<sup>$6$</sup> coins will be used).
+
+> [!TIP]
+> It's a good practise to define a constant `INF=1e9` (or `1e18`) so you can use a large value easily while coding. Using it will also make the code more readable, and it's really useful when writing longer code.
+
