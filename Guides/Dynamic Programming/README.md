@@ -103,7 +103,11 @@ Now let's try to solve [Minimizing Coins (CSES)](https://cses.fi/problemset/task
 #### 1. Defining the states
 **Finding subproblems**: To solve a problem with DP, we must first decide what our subproblems will be. To do that, we have to divide the problem into "steps". These will basically be the choices we have. In this case, each time we have to choose the next coin we are going to use, so each "step" will be the choise of a coin.
 
-**Finding the parameters**: To do that, we have to find what changes after each step. Here, what changes after we select a coin is the value that we need to collect from now on (For example, if $x=10$ and we have used a coin of value $2$, this value will be $8$). This is the only info we will need in order to solve the problem.
+**Finding the parameters**: To do that, we have to find what changes after each step. Here, what changes after we select a coin is the value that we need to collect from now on (For example, if $x=10$ and we have used a coin of value $2$, this value will be $8$). Let's call this value $r$. This is the only info we will need in order to solve the problem.
 
 #### 2. Seperating cases
-**Working with recursion**: Now that we know
+**Working with recursion**: Generally, to find the best option, `solve()` has to choose the minimum/maximum option, depending on the problem. So the next question is: What do we need to know in order to calculate the value of each option? For each option we need to call `solve()`, changing the parameters in the way they will change after the current step. For example, here, if we choose a coin with value $c$<sub>$i$</sub>, then $r$ will reduce by $a$<sub>$i$</sub>, so we must call `solve(r-a[i])`. Next, we must find how this value will be affected during each step. Here, in each step we add one more coin, so the value will be increased by $1$. With these in mind, we can see that to calculate the answer for $x$, we must find the minimum value of `solve(r-a[i])+1` among all $i$, $0 \leq i < n$.
+
+**The base case**: Now, we need to add a base case. The base case must be the simplest subproblem our code will reach. In this case, that's $x=0$, with it's answer being $0$, as we won't need any more coins.
+
+**Other cases**: 
