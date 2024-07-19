@@ -48,7 +48,7 @@ typedef long long ll;
 ll solve(ll i){
     if(i==0) return 0;  // Base case #1: The first number is 0
     else if(i==1) return 1;  // Base case #2: The second number is 1
-    else return ans[i]=solve(i-1)+solve(i-2);  // If i >= 2, the answer is the sum of solve(i-1) and solve(i-2)
+    else return solve(i-1)+solve(i-2);  // If i >= 2, the answer is the sum of solve(i-1) and solve(i-2)
 }
 
 int main(){
@@ -79,8 +79,9 @@ Here is the new code:
 using namespace std;
 
 typedef long long ll;
+const ll N=1e6;
 
-ll ans[1e6];
+ll ans[N];
 
 ll solve(ll i){
     if(ans[i]!=-1) return ans[i];  // If the solution is already saved in ans, return it
@@ -129,10 +130,11 @@ The code seems to work perfectly... most of the time. There is one problem. Some
 using namespace std;
 
 typedef long long ll;
+const ll N=1e6;
 const ll INF=1e18;
- 
-ll n, c[1e6];
-ll ans[1e6];
+
+ll n, c[N];
+ll ans[N];
 
 ll solve(ll r){
     if(r<0) return INF;  // Special case: If r is too small, return INF
@@ -141,15 +143,13 @@ ll solve(ll r){
     else{
         ans[r]=INF;  // Initialize ans[r] to INF to find the minimum value
         for(ll i=0; i<n; i++){  // For each coin
-            ans[r]=min(ans, solve(r-c[i])+1);  // If we choose this coin next, we'll need this coin, plus the minimum number of coins we need for the rest of the sum
+            ans[r]=min(ans[r], solve(r-c[i])+1);  // If we choose this coin next, we'll need this coin, plus the minimum number of coins we need for the rest of the sum
         }
         return ans[r];
     }
 }
  
 int main(){
-    fastio;
- 
     ll x;
     cin>>n>>x;
     for(ll i=0; i<n; i++){
