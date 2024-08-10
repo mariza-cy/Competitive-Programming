@@ -35,7 +35,7 @@ I have used emojis to include some more information about the language of the st
 ### 2020
  - Eolymp Basecamp - [Day 1](https://basecamp.eolymp.com/en/contests/ug2a4hg2913p591nadvccmqh84) - [Day 2](https://basecamp.eolymp.com/en/contests/s20jsqagrd3l900gra2ahoehak) - :desktop_computer: | :globe_with_meridians:
  - oj.uz - [Days 1-2](https://oj.uz/problems/source/531) - :white_check_mark: | :uk:
- - Official website - [Days 0-2](https://ioi2020.sg/ioi-2020-tasks/) - :page_facing_up: | :paperclip: | :uk:
+ - Official website - [Days 0-2](https://ioi2020.sg/ioi-2020-tasks/) - :page_facing_up: | :paperclip: | :notebook_with_decorative_cover: | :uk:
 
 ## BalkanOI
 ### 2023
@@ -45,7 +45,7 @@ I have used emojis to include some more information about the language of the st
 ## EJOI
 ### 2023
  - Eolymp Basecamp - [Day 1](https://basecamp.eolymp.com/en/contests/bhk3kdivet0n3b0en6tu1dv1es) - [Day 2](https://basecamp.eolymp.com/en/contests/ngicgbh6t97dfeupapnbhm6q8k) - :desktop_computer: | :globe_with_meridians:
- - Official website (zip file with problem data) - [Days 1-2](https://ejoi2023.kiu.edu.ge/en/Home/ProblmeData) - :page_facing_up: | :paperclip: | :globe_with_meridians:
+ - Official website (zip file with problem data) - [Days 1-2](https://ejoi2023.kiu.edu.ge/en/Home/ProblmeData) - :page_facing_up: | :paperclip: | :notebook_with_decorative_cover: | :globe_with_meridians:
  - EJOI statistics - [Days 1-2](https://olympiads.jsoft.am/Olympiads/Details/2067#) - :page_facing_up: | :uk: | :exclamation:
 
 ## EGOI
