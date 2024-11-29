@@ -48,5 +48,8 @@ int main(){
 
 ### More practice
 Try to solve as many of these problems as possible:
-- [x] **[Ταξινόμηση αριθμών](https://www.hackerrank.com/contests/bubbles-bubbles/challenges/1-10)** (Source: COI exercises on Hackerrank - Bubble sort)
-- [ ] **Problem 2**
+
+- [ ] [Ταξινόμηση με άθροισμα ψηφίων](https://www.hackerrank.com/contests/bubbles-bubbles/challenges/10-3) | Source: COI exercises on Hackerrank - Bubble sort | :star:	- 1/10
+- [ ] [Χριστουγεννιάτικος χορός](https://www.hackerrank.com/contests/bubbles-bubbles/challenges/challenge-307) | Source: COI exercises on Hackerrank - Bubble sort | :star: :star: - 2/10
+- [ ] [Alice and Books](https://codeforces.com/problemset/problem/1978/A) | Source: Codeforces | :star: :star: - 2/10
+- [ ] [Choosing Cubes](https://codeforces.com/contest/1980/problem/B) | Source: Codeforces | :star: :star: :star: - 3/10
