@@ -45,3 +45,8 @@ int main(){
     }
 }
 ```
+
+### More practice
+Try to solve as many of these problems as possible:
+- [x] **[Ταξινόμηση αριθμών](https://www.hackerrank.com/contests/bubbles-bubbles/challenges/1-10)** (Source: COI exercises on Hackerrank - Bubble sort)
+- [ ] **Problem 2**
