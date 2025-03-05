@@ -1,4 +1,4 @@
-# Strongly Connected Components - Kosaraju's algorithm
+# Strongly Connected Components
 
 ## Definitions
 - **Strongly Connected Graph**: A directed graph where you can reach any node from any other node
@@ -6,10 +6,10 @@
 - **Component Graph**: A DAG graph where each node corresponds to a SCC in a directed graph
 
 ## Kosaraju's algorithm
-An $O(n+e)$ algorithm to find the SCCs of a graph. It has 2 steps:
+An $O(n+e)$ algorithm to find the SCCs of a graph.
 
 ### 1. Topological sort
-Simply run a normal DFS and add each node to a stack/vector at the end of the function (You need to run `dfs1()` from every node:
+Simply run a normal DFS and add each node to a stack/vector at the end of the function (We must run `dfs1()` from every node:
 ```cpp
 vector<ll> s;  // s: The (reversed) topological order of the graph
 bool vis1[N]={};
@@ -58,18 +58,28 @@ for(ll i=n-1; i>=0; i--){
     ll curr=s[i];
 
     // Check if visited
-    if(vis[i]) continue;
+    if(vis2[curr]) continue;
 
     // Call the DFS function
-    dfs2(i,x);
+    dfs2(curr,x);
 
     // Increase SCC counter
     x++;
 }
 ```
 
-<!--
-### Creating the component graph:
-At the end of `dfs2()`, add 
+### 3. Creating the component graph
+We can just check all the edges of the original graph and add them to the component graph if the vertices they connect belong to different SCCs.
+
+Inside the `main()` function:
 ```cpp
--->
+for(ll u=0; u<n; u++){
+    // Change the value of the SCC based on the value of current node (if needed)
+    
+    for(auto v:g[u]){
+        if(scc[u]!=scc[v]){
+            dag[scc[u]].push_back(scc[v]);
+        }
+    }
+}
+```
