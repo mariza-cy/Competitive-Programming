@@ -5,6 +5,11 @@
 - **Strongly Connected Component (SCC)**: A maximal strongly connected subgraph of a directed graph
 - **Component Graph**: A DAG graph where each node corresponds to a SCC in a directed graph
 
+## Uses of SCCs
+- **Trivial** - Find the SCC each node belongs to
+- **Component graph (DP)** - Component graphs are DAGs, so we can use DP on them
+- **2-SAT** - With SCCs we can solve the 2-SAT problem (see below)
+
 ## Kosaraju's algorithm
 An $O(n+e)$ algorithm to find the SCCs of a graph.
 
@@ -86,3 +91,17 @@ for(ll u=0; u<n; u++){
     }
 }
 ```
+
+## 2-SAT
+- **SAT:** The problem of assigning Boolean values to some variables to satisfy a Boolean expression. The expressions are of the form $({a_1}_1 \lor {a_1}_2 \lor \dots \lor {a_1}\_{k_1}) \land ({a_2}_1 \lor {a_2}_2 \lor \dots \lor {a_2}\_{k_2}) \land \dots \land ({a_n}_1 \lor {a_n}_2 \lor \dots \lor {a_n}\_{k_1})$, where each ${a_i}_j$ is either $v$ or $\neg v$ where $v$ is a variable. The SAT problem is NP-complete
+- **2-SAT:** A restriction of the SAT problem where each clause has only 2 literals: $({a_1}_1 \lor {a_1}_2) \land ({a_2}_1 \lor {a_2}_2) \land \dots \land ({a_n}_1 \lor {a_n}_2)$. It can be solved in $O(n + m)$ time (where $n$ is the number of variables and $m$ is the number of clauses)
+
+To solve the problem we can create a graph based on the expressions and use it to find a solution, or detect that there isn't one.
+
+### 1. Creating the graph
+All the clauses in the expressions must be true, so at least one of the literals of each expression must be true. Therefore, if one of them is false, the other is defenitely true. So if one of the clauses is $(a \lor b)$, then $\neg a \implies b$ and $\neg b \implies a$. Based on these implications, we can create a directed graph where each node represents a value for some variable, so there are nodes $a$ and $\neg a$ for each variable $a$, and an edge from $u$ to $v$ means that $u \implies v$. 
+
+### 2. Checking if the expression is satisfiable
+If $a \implies \neg a$ (directly or indirectly), $a$ obviously can't be true, since that would imply it's false. If $a \iff \neg a$, $a$ can't be either $\text{true}$ or $\text{false}$ and there is no way to satisfy the expression. If $a \implies \neg a$, there is a path in the implication graph from $a$ to $\neg a$, and the opposite, so $a \iff \neg a$ if and only if $a$ and $\neg a$ belong in the same SCC.
+
+So it's sufficient to use Kosaraju's algorithm to find the SCCs of the graph, and check that $a$ and $\neg a$ are in different SCCs.
