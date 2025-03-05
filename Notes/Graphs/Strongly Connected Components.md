@@ -8,6 +8,9 @@
 ## Kosaraju's algorithm
 An $O(n+e)$ algorithm to find the SCCs of a graph.
 
+[Full implementation](https://github.com/mariza-cy/Competitive-Programming/blob/main/Notes/Graphs/Implementation/Kosaraju's%20algorithm.cpp)\
+[Raw implementation](https://github.com/mariza-cy/Competitive-Programming/blob/main/Notes/Graphs/Implementation/Raw%20(No%20comments)/Kosaraju's%20algorithm.cpp)
+
 ### 1. Topological sort
 Simply run a normal DFS and add each node to a stack/vector at the end of the function (We must run `dfs1()` from every node:
 ```cpp
