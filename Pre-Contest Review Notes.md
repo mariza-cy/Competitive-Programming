@@ -215,13 +215,6 @@ void dfs(ll curr) {
 ## Hashing
 ## Trie
 
-## Remember :)
- - Read all the statements
- - Go for highest sub
- - Change approaches
- - Take a break
- - Stay calm
-
 ## Debugging checklist
  - Input format
  - INF size - invalid options never chosen
