@@ -222,3 +222,15 @@ vector<vector<ll>> mpow(vector<vector<ll>> a, ll x){
 ```
 
 **Complexity proof**: Since `x` is divided by 2 in each call, there are about $\log x$ calls in total. Sometimes the function will also call `identity` with complexity $O(n^2)$ or `multiply()` with complexity $O(n^3)$. Total: $O(n^3 \log x)$.
+
+## Linear recurrences
+**Definition**: A function $f(n)$ with initial values $f(0), f(1), \dots, f(k-1)$, where the next values are calculated using the formula:
+```math
+f(n) = x_1f(n-1) + x_2f(n-2) + \dots + x_kf(n-k)
+```
+where $x_1, x_2, \dots, x_k$ are constant coefficients.
+
+Although DP can be used to calculate $f(n)$ in $O(nk)$, we can use matrix exponentiation to calculate it in $O(k^3 \log n)$.
+
+### Creating a starting vector
+We'll start with a vector $F_0$ of size $k \times 1$ where $F_0[i, 1] = f(i)$. Since $f(i)$ is fixed for every $i$ up to $k-1$, we already know all the values of this matrix.
