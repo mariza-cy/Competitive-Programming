@@ -4,24 +4,24 @@
 - **Matrix**: A table of numbers, the mathematics equivalent to a 2D array in programming. For example, this is a matrix of size $2 \times 3$:
 ```math
 A = \begin{bmatrix}
-35 & 12 & 7\\
-8 & 4 & 20
+    35 & 12 & 7\\
+    8 & 4 & 20
 \end{bmatrix}
 ```
 - **Vector**: A matrix with only one column, for example:
 ```math
 A = \begin{bmatrix}
-35\\
-12\\
-7\\
-8
+    35\\
+    12\\
+    7\\
+    8
 \end{bmatrix}
 ```
 - **Square matrix**: A matrix with the same number of rows and columns, for example:
 ```math
 A = \begin{bmatrix}
-35 & 12\\
-7 & 8
+    35 & 12\\
+    7 & 8
 \end{bmatrix}
 ```
 
@@ -35,23 +35,23 @@ The sum $A + B$ of matrices $A$ and $B$ is defined if they have the same size. E
 For example:
 ```math
 \begin{bmatrix}
-35 & 12 & 7\\
-8 & 4 & 20
+    35 & 12 & 7\\
+    8 & 4 & 20
 \end{bmatrix}
 +
 \begin{bmatrix}
-13 & 14 & 6\\
-3 & 1 & 10
+    13 & 14 & 6\\
+    3 & 1 & 10
 \end{bmatrix}
 =
 \begin{bmatrix}
-35+13 & 12+14 & 7+6\\
-8+3 & 4+1 & 20+10
+    35+13 & 12+14 & 7+6\\
+    8+3 & 4+1 & 20+10
 \end{bmatrix}
 =
 \begin{bmatrix}
-48 & 26 & 13\\
-11 & 5 & 30
+    48 & 26 & 13\\
+    11 & 5 & 30
 \end{bmatrix}
 ```
 
@@ -64,18 +64,18 @@ For example:
 ```math
 2 \cdot
 \begin{bmatrix}
-35 & 12 & 7\\
-8 & 4 & 20
+    35 & 12 & 7\\
+    8 & 4 & 20
 \end{bmatrix}
 =
 \begin{bmatrix}
-2\cdot35 & 2\cdot12 & 2\cdot7\\
-2\cdot8 & 2\cdot4 & 2\cdot20
+    2\cdot35 & 2\cdot12 & 2\cdot7\\
+    2\cdot8 & 2\cdot4 & 2\cdot20
 \end{bmatrix}
 =
 \begin{bmatrix}
-70 & 24 & 14\\
-16 & 8 & 40
+    70 & 24 & 14\\
+    16 & 8 & 40
 \end{bmatrix}
 ```
 
@@ -89,26 +89,26 @@ AB[i, j] = A[i, 1] \cdot B[1, j] + A[i, 2] \cdot B[2, j] + \dots + A[i, n] \cdot
 For example:
 ```math
 \begin{bmatrix}
-12 & 7\\
-4 & 20\\
-3 & 2
+    12 & 7\\
+    4 & 20\\
+    3 & 2
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-1 & 6\\
-2 & 9
+    1 & 6\\
+    2 & 9
 \end{bmatrix}
 =
 \begin{bmatrix}
-12\cdot1+7\cdot2 & 12\cdot6+7\cdot9\\
-4\cdot1+20\cdot2 & 4\cdot6+20\cdot9\\
-3\cdot1+2\cdot2 & 3\cdot6+2\cdot9
+    12\cdot1+7\cdot2 & 12\cdot6+7\cdot9\\
+    4\cdot1+20\cdot2 & 4\cdot6+20\cdot9\\
+    3\cdot1+2\cdot2 & 3\cdot6+2\cdot9
 \end{bmatrix}
 =
 \begin{bmatrix}
-26 & 135\\
-44 & 204\\
-7 & 36
+    26 & 135\\
+    44 & 204\\
+    7 & 36
 \end{bmatrix}
 ```
 
@@ -137,3 +137,88 @@ vector<vector<ll>> multiply(vector<vector<ll>> a, vector<vector<ll>> b){  // a: 
     return ans;
 }
 ```
+
+### Exponentiation
+The power $A^x$ of a matrix $A$ is defined if $A$ is a square matrix. Like with numbers, $A^x$ is $A$ multiplied with itself $x$ times:
+```math
+A^x = \underbrace{A \cdot A \cdot \dots \cdot A}_{\textit{x times}}
+```
+$A^0$ is an identity matrix, meaning each element is $1$ if the number of its row is equal to the number of its column and $0$ otherwise:
+```math
+A^0[i, j] = \begin{cases}
+    1, & i = j\\
+    0, & \text{otherwise}
+\end{cases}
+```
+For example:
+```math
+\begin{bmatrix}
+    1 & 6\\
+    2 & 9
+\end{bmatrix}^3
+=
+\begin{bmatrix}
+    1 & 6\\
+    2 & 9
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+    1 & 6\\
+    2 & 9
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+    1 & 6\\
+    2 & 9
+\end{bmatrix}
+=
+\begin{bmatrix}
+    133 & 618\\
+    290 & 1335
+\end{bmatrix}
+```
+```math
+\begin{bmatrix}
+    1 & 6\\
+    2 & 9
+\end{bmatrix}^0
+=
+\begin{bmatrix}
+    1 & 0\\
+    0 & 1
+\end{bmatrix}
+```
+
+#### Calculating with code
+We can efficiently calculate $A^x$ in $O(n^3 \log x)$, where $n$ is the size of $A$ using the same recursive algorithm we use in modular exponentiation:
+```math
+A^x = \begin{cases}
+    \text{identity matrix} & x = 0\\
+    (A \cdot A)^{\frac{x}{2}} & x \text{ is even}\\
+    A \cdot (A \cdot A)^{\lfloor \frac{x}{2} \rfloor} & x \text{ is odd}\\
+\end{cases}
+```
+
+We can use the multiplication value from before to implement it with code:
+```cpp
+vector<vector<ll>> identity(ll n){  // Returns an identity matrix of size n
+    vector<vector<ll>> ans;
+    for(ll i=0; i<n; i++){
+        ans.push_back(vector<ll>());  // Insert a new row (an empty vector) to the result
+        for(ll j=0; j<n; j++){
+            // Insert a new element
+            if(i==j) ans[i].push_back(1);
+            else ans[i].push_back(0);
+        }
+    }
+    return ans;
+}
+
+vector<vector<ll>> mpow(vector<vector<ll>> a, ll x){
+    if(x==0) return identity(a.size());  // Identity matrix
+    else if(x%2==0) return mpow(multiply(a,a), x/2);  // (a*a)^(x/2)
+    else return multiply(a, mpow(multiply(a,a), x/2));  // a*((a*a)^(x/2))
+}
+```
+
+**Complexity proof**: Since `x` is divided by 2 in each call, there are about $\log x$ calls in total. Sometimes the function will also call `identity` with complexity $O(n^2)$ or `multiply()` with complexity $O(n^3)$. Total: $O(n^3 \log x)$.
