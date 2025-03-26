@@ -226,11 +226,119 @@ vector<vector<ll>> mpow(vector<vector<ll>> a, ll x){
 ## Linear recurrences
 **Definition**: A function $f(n)$ with initial values $f(0), f(1), \dots, f(k-1)$, where the next values are calculated using the formula:
 ```math
-f(n) = x_1f(n-1) + x_2f(n-2) + \dots + x_kf(n-k)
+f(n) = c_1f(n-1) + c_2f(n-2) + \dots + c_kf(n-k)
 ```
-where $x_1, x_2, \dots, x_k$ are constant coefficients.
+where $c_1, c_2, \dots, c_k$ are constant coefficients.
 
 Although DP can be used to calculate $f(n)$ in $O(nk)$, we can use matrix exponentiation to calculate it in $O(k^3 \log n)$.
 
 ### Creating a starting vector
 We'll start with a vector $F_0$ of size $k \times 1$ where $F_0[i, 1] = f(i)$. Since $f(i)$ is fixed for every $i$ up to $k-1$, we already know all the values of this matrix.
+
+### Creating a "transformation matrix"
+Let's try to find a vector $X$ such that: 
+```math
+X \cdot F_0 = X \cdot
+\begin{bmatrix}
+    f(1)\\
+    f(2)\\
+    \vdots\\
+    f(k)
+\end{bmatrix}
+=
+\begin{bmatrix}
+    f(2)\\
+    f(3)\\
+    \vdots\\
+    f(k+1)
+\end{bmatrix}
+= F_1
+```
+
+#### First $k-1$ rows
+Because of the matrix multiplication formula:
+```math
+F_1[i, 1] = X[i, 1] \cdot F_0[1, 1] + X[i, 2] \cdot F_0[2, 1] + \dots + X[i, k] \cdot F_0[k, 1] = X[i, 1] \cdot f(1) + X[i, 2] \cdot f(2) + \dots + X[i, k] \cdot f(k)
+```
+
+For the first $k-1$ rows, $F_1[i, 1] = f(i+1)$, so:
+```math
+F_1[i, 1] = X[i, 1] \cdot f(1) + X[i, 2] \cdot f(2) + \dots + X[i, k] \cdot f(k) = f(i+1)
+```
+
+Because of this, $X[i, i+1]$ must be equal to $1$ and all other $X[i, j]$ must be equal to $0$:
+```math
+F_1[i, 1] = 0 f(1) + 0 f(2) + \dots + 1 f(i+1) + \dots + 0 f(k) = 0 + 0 + \dots + f(i+1) + \dots + 0 = f(i+1)
+```
+
+#### Last row
+The formula of the recurrence is:
+```math
+f(k+1) = c_k f((k+1)-k) + c_{k-1} f((k+1)-(k-1)) + \dots + c_1 f((k+1)-1) = c_k f(1) + c_{k-1} f(2) + \dots + c_1 f(k)
+```
+
+Additionally,
+```math
+F_1[k, 1] = X[k, 1] \cdot f(1) + X[k, 2] \cdot f(2) + \dots + X[k, k] \cdot f(k)
+```
+
+Therefore, if $X[k, i] = c_{k-i+1}$:
+```math
+F_1[k, 1] = X[k, 1] \cdot f(1) + X[k, 2] \cdot f(2) + \dots + X[k, k] \cdot f(k) = c_k f(1) + c_{k-1} f(2) + \dots + c_1 f(k) = f(k+1)
+```
+
+So the matrix $X$ will be:
+```math
+X =
+\begin{bmatrix}
+    0 & 1 & 0 & 0 & \dots & 0\\
+    0 & 0 & 1 & 0 & \dots & 0\\
+    0 & 0 & 0 & 1 & \dots & 0\\
+    \vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & 0 & \dots & 1\\\
+    c_k & c_{k-1} & c_{k-2} & c_{k-3} & \dots & c_1
+\end{bmatrix}
+```
+
+### Finding bigger values
+If we assume that the new starting vector if $F_1$, $X \cdot F_1 = F_2$, where:
+```math
+F_2 =
+\begin{bmatrix}
+    f(3)\\
+    f(4)\\
+    \vdots\\
+    f(k+2)
+\end{bmatrix}
+```
+
+By multiplying $n$ times, we get $F_n$:
+```math
+F_n =
+\begin{bmatrix}
+    f(n+1)\\
+    f(n+2)\\
+    \vdots\\
+    f(n+k-1)
+\end{bmatrix}
+```
+
+So we can find $f(n)$ by calculating
+```math
+F_{n-1} =
+\begin{bmatrix}
+    f(n)\\
+    f(n+1)\\
+    \vdots\\
+    f(n+k-1)
+\end{bmatrix}
+= X^{n-1} =
+\begin{bmatrix}
+    f(1)\\
+    f(2)\\
+    \vdots\\
+    f(k)
+\end{bmatrix}
+```
+
+The complexity is $O(k^3 \log n)$ because of the matrix exponentiation.
