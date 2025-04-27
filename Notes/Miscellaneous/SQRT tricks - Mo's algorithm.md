@@ -27,10 +27,10 @@ for(ll i=0; i<q; i++){
 ```
 
 #### 2. Processing the queries
-Now process each block, starting by sorting the queries of that block in non-decreasing order of the left bound. In the previous example:
+Now process each block, starting by sorting the queries of that block in non-decreasing order of their left bound. In the previous example:
 <p align="center"><img src="https://github.com/mariza-cy/Competitive-Programming/blob/main/Others/Images/Mo's%20Algorithm%20Queries%202.png" width="540"></p>
 
-Then initialize a left ($l$) and right ($r$) pointer to positions $j\sqrt{n}$ (the first position of the block) and $j\sqrt{n} - 1$ (the position before the beginning of the block), respectively. These will represent the current range. Also initialize a variable with the answer for the current range, and any other variables you might need to calculate this answer.
+Then initialize a left ($l$) and right ($r$) pointer to positions $j\sqrt{n}$ (the first position of the block) and $j\sqrt{n} - 1$ (the position before the beginning of the block), respectively, to start with an empty range. These will represent the current range. Also initialize a variable with the answer for the current range, and any other variables you might need to calculate this answer.
 
 Now process the queries, one by one. If the current query is on range $[l_c,r_c]$ we need to move from range $[l,r]$ to range $[l_c,r_c]$ (note that $l \leq l_c$, since the queries are sorted), so we must:
 - Add elements to the end of the current range until $r = r_c$
@@ -39,9 +39,20 @@ Now process the queries, one by one. If the current query is on range $[l_c,r_c]
 
 After moving to the next range, save the answer in an array on the position tha corresponds to that query.
 
+Add this outside the `main()` function to sort the ranges:
+```cpp
+bool comp(pair<pair<ll,ll>,ll> a, pair<pair<ll,ll>,ll> b){
+    return a.first.second<b.first.second;
+}
+```
+
+Then, type this inside the `main()` function:
 ```cpp
 ll ansq[q];  // ansq[i]: the answer to the i-th query
 for(ll i=0; i<SQRT; i++){
-    sort
+    sort(b[i].begin(), b[i].end());  // Sort the ranges of b[i] by their left bound
+
+    ll l=
+```
 
 ###
